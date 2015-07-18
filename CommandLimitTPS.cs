@@ -4,6 +4,7 @@ using Rocket.Unturned.Commands;
 using Rocket.Unturned;
 using UnityEngine;
 using Rocket.Unturned.Player;
+using Rocket.Core.Logging;
 
 namespace FPSCap
 {
@@ -18,7 +19,7 @@ namespace FPSCap
         {
             if (command.Length == 0)
             {
-                RocketChat.Say(caller, this.Syntax + " - " + this.Help);
+                RocketChat.Say(caller, FPSCap.Instance.Translate("ltps_command_help", new object[] { }));
                 return;
             }
             int limitTPS;
@@ -27,16 +28,18 @@ namespace FPSCap
                 //limit the minimum tps that can be used above a value of 0, but less than 10, to 10.
                 if (limitTPS > 0 && limitTPS < 10)
                 {
-                    Application.targetFrameRate = 10;
+                    limitTPS = 10;
                 }
-                else
+                Application.targetFrameRate = limitTPS;
+                if (caller != null)
                 {
-                    Application.targetFrameRate = limitTPS;
+                    RocketChat.Say(caller, FPSCap.Instance.Translate("tps_set", new object[] { limitTPS }));
                 }
+                Logger.Log(FPSCap.Instance.Translate("tps_set", new object[] { limitTPS }));
             }
             else
             {
-                RocketChat.Say(caller, "Invalid arguments.");
+                RocketChat.Say(caller, FPSCap.Instance.Translate("invalid_arg", new object[] { }));
                 return;
             }
         }
