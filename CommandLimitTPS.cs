@@ -55,7 +55,7 @@ namespace FPSCap
                     limitTPS = 10;
                 }
                 Application.targetFrameRate = limitTPS;
-                if (caller != null)
+                if (!(caller is ConsolePlayer))
                 {
                     UnturnedChat.Say(caller, FPSCap.Instance.Translations.Instance.Translate("tps_set", limitTPS));
                 }
