@@ -1,25 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rocket.Unturned.Commands;
-using Rocket.Unturned;
 using UnityEngine;
-using Rocket.Unturned.Player;
+using Rocket.API;
 using Rocket.Core.Logging;
+using Rocket.Unturned.Chat;
 
 namespace FPSCap
 {
     public class CommandLimitTPS : IRocketCommand
     {
+        public bool AllowFromConsole
+        {
+            get { return true; }
+        }
+
+        public string Name
+        {
+            get { return "limittps"; }
+        }
+
+        public string Help
+        {
+            get { return "Limits the server tps/fps to the value set in the command. 0 disables the TPS cap."; }
+        }
+
+        public string Syntax
+        {
+            get { return "<TPS>"; }
+        }
+
         public List<string> Aliases
         {
             get { return new List<string>() { "ltps" }; }
         }
 
-        public void Execute(RocketPlayer caller, string[] command)
+        public List<string> Permissions
+        {
+            get { return new List<string> { "fpscap.ltps" }; }
+        }
+
+        public void Execute(IRocketPlayer caller, string[] command)
         {
             if (command.Length == 0)
             {
-                RocketChat.Say(caller, FPSCap.Instance.Translate("ltps_command_help", new object[] { }));
+                UnturnedChat.Say(caller, FPSCap.Instance.Translations.Instance.Translate("ltps_command_help"));
                 return;
             }
             int limitTPS;
@@ -33,35 +57,15 @@ namespace FPSCap
                 Application.targetFrameRate = limitTPS;
                 if (caller != null)
                 {
-                    RocketChat.Say(caller, FPSCap.Instance.Translate("tps_set", new object[] { limitTPS }));
+                    UnturnedChat.Say(caller, FPSCap.Instance.Translations.Instance.Translate("tps_set", limitTPS));
                 }
-                Logger.Log(FPSCap.Instance.Translate("tps_set", new object[] { limitTPS }));
+                Logger.Log(FPSCap.Instance.Translations.Instance.Translate("tps_set", limitTPS));
             }
             else
             {
-                RocketChat.Say(caller, FPSCap.Instance.Translate("invalid_arg", new object[] { }));
+                UnturnedChat.Say(caller, FPSCap.Instance.Translations.Instance.Translate("invalid_arg"));
                 return;
             }
-        }
-
-        public string Help
-        {
-            get { return "Limits the server tps/fps to the value set in the command. 0 disables the TPS cap."; }
-        }
-
-        public string Name
-        {
-            get { return "limittps"; }
-        }
-
-        public bool RunFromConsole
-        {
-            get { return true; }
-        }
-
-        public string Syntax
-        {
-            get { return "<TPS>"; }
         }
     }
 }

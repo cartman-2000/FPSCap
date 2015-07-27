@@ -1,8 +1,9 @@
 ﻿using System;
-using Rocket.Unturned.Plugins;
 using UnityEngine;
+using Rocket.API.Collections;
 using Rocket.Core.Logging;
-using System.Collections.Generic;
+using Rocket.Core.Plugins;
+
 
 namespace FPSCap
 {
@@ -13,28 +14,19 @@ namespace FPSCap
         {
             Instance = this;
             // Sets the default tps limit for the server to what has been set in the config.
-            Application.targetFrameRate = Instance.Configuration.defaultTPS;
-            Logger.Log(Translate("tps_set", new object[] { Instance.Configuration.defaultTPS }));
+            Application.targetFrameRate = Instance.Configuration.Instance.defaultTPS;
+            Logger.Log(Translations.Instance.Translate("tps_set", Instance.Configuration.Instance.defaultTPS));
         }
 
-        public override Dictionary<string, string> DefaultTranslations
+        public override TranslationList DefaultTranslations
         {
             get
             {
-                return new Dictionary<string, string>
+                return new TranslationList
                 {
-                    {
-                        "invalid_arg",
-                        "Invalid Arguments."
-                    },
-                    {
-                        "tps_set",
-                        "Server TPS has been set to: {0} TPS."
-                    },
-                    {
-                        "ltps_command_help",
-                        "<TPS> - Limits the server tps/fps to the value set in the command. 0 disables the TPS cap."
-                    }
+                    { "invalid_arg", "Invalid Arguments." },
+                    { "tps_set", "Server TPS has been set to: {0} TPS." },
+                    { "ltps_command_help", "<TPS> - Limits the server tps/fps to the value set in the command. 0 disables the TPS cap." }
                 };
             }
         }
