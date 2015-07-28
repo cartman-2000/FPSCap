@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandTPS.cs" />
     <Compile Include="FPSCapConfig.cs" />
     <Compile Include="CommandLimitTPS.cs" />
     <Compile Include="FPSCap.cs" />
