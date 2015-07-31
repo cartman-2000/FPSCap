@@ -5,6 +5,11 @@ namespace FPSCap
 {
     public class FPSCapConfig : IRocketPluginConfiguration
     {
-        public int defaultTPS = 60;
+        public int defaultTPS;
+
+        public void LoadDefaults()
+        {
+            defaultTPS = 60;
+        }
     }
 }
