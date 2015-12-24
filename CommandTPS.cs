@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using Rocket.API;
 using Rocket.Unturned.Chat;
-
+using Steamworks;
+using UnityEngine;
 
 namespace FPSCap
 {
     public class CommandTPS : IRocketCommand
     {
-        public bool AllowFromConsole
+        public AllowedCaller AllowedCaller
         {
-            get { return true; }
+            get { return AllowedCaller.Both; }
         }
 
         public string Name
