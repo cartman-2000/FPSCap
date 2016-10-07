@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Rocket.API;
 using Rocket.Core.Logging;
 using Rocket.Unturned.Chat;
@@ -54,7 +53,7 @@ namespace FPSCap
                 {
                     limitTPS = 10;
                 }
-                Application.targetFrameRate = limitTPS;
+                UnityEngine.Application.targetFrameRate = limitTPS;
                 if (!(caller is ConsolePlayer))
                 {
                     UnturnedChat.Say(caller, FPSCap.Instance.Translations.Instance.Translate("tps_set", limitTPS));

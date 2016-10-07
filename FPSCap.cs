@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 using Rocket.API.Collections;
 using Rocket.Core.Logging;
 using Rocket.Core.Plugins;
@@ -21,14 +20,14 @@ namespace FPSCap
         {
             Instance = this;
             // Sets the default tps limit for the server to what has been set in the config.
-            Application.targetFrameRate = Instance.Configuration.Instance.defaultTPS;
+            UnityEngine.Application.targetFrameRate = Instance.Configuration.Instance.defaultTPS;
             Logger.Log(Translations.Instance.Translate("tps_set", Instance.Configuration.Instance.defaultTPS));
         }
 
         public void Update()
         {
-            timeleft -= Time.deltaTime;
-            accum += Time.timeScale / Time.deltaTime;
+            timeleft -= UnityEngine.Time.deltaTime;
+            accum += UnityEngine.Time.timeScale / UnityEngine.Time.deltaTime;
             frames++;
             if (timeleft <= 0.0)
             {
